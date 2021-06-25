@@ -36,11 +36,11 @@ with open('prueba.csv', newline='') as File:
     for row in reader:
     	num_unico = row[0]
     	novedad = row[1]
-		moverMouse(pos_numero_unico) 	# meter numero unico
-		robot.typewrite(num_unico)
-		robot.sleep(1)
-		moverMouse(pos_novedad) 		# Posisionar en novedad
-		if novedad == '22':
+    	moverMouse(pos_numero_unico) # meter numero unico
+    	robot.typewrite(num_unico)
+    	robot.sleep(1)
+    	moverMouse(pos_novedad) # Posisionar en novedad
+    	if novedad == '22':
     		tipearNovedad("2", 3)
     	elif novedad.lower() == 'rae':
     		tipearNovedad("r", 1)
@@ -49,8 +49,8 @@ with open('prueba.csv', newline='') as File:
     	elif novedad.lower() == 'ua':
     		tipearNovedad("u", 1)
     	intro()
-		cargar()
-		asignar()
+    	cargar()
+    	asignar()
     		
 del num_unico, novedad, reader  # Borrar objetos
 File.close()  # Cerrar archivo
