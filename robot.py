@@ -11,30 +11,47 @@ def moverMouse(pos,click=1):
 	robot.moveTo(pos)
 	robot.click(clicks=click)
 
-# leer csv, obtener campos del archivo
-novedad = "RAE"
-numero_unico = "06-002731-3"
-
-# meter numero unico
-moverMouse(pos_numero_unico)
-robot.typewrite(numero_unico)
-robot.sleep(1)
-
-# Posisionar en novedad
-moverMouse(pos_novedad)
-
-# validar novedades
-if novedad == "RAE":
-	robot.typewrite("r")
+def tipearNovedad(tecla, veces):
+	for x in range(veces):
+		robot.typewrite(tecla)
 	robot.sleep(1)
 
-# meter novedad
-robot.hotkey("enter")
-robot.sleep(1)
+def intro():
+	robot.hotkey("enter")
+	robot.sleep(1)
 
-# cargar
-moverMouse(pos_cargar)
+def cargar():
+	moverMouse(pos_cargar)
 
-# asignar
-moverMouse(pos_asignar)
-robot.hotkey("enter")
+def asignar():
+	moverMouse(pos_asignar)
+	robot.hotkey("enter")
+
+# leer csv, obtener campos del archivo
+# Leer el archivo 'datos.csv' con reader() y 
+# realizar algunas operaciones básicas: 
+
+with open('prueba.csv', newline='') as File:  
+    reader = csv.reader(File, delimiter=';')
+    for row in reader:
+    	num_unico = row[0]
+    	novedad = row[1]
+		moverMouse(pos_numero_unico) 	# meter numero unico
+		robot.typewrite(num_unico)
+		robot.sleep(1)
+		moverMouse(pos_novedad) 		# Posisionar en novedad
+		if novedad == '22':
+    		tipearNovedad("2", 3)
+    	elif novedad.lower() == 'rae':
+    		tipearNovedad("r", 1)
+    	elif novedad.lower() == 'not':
+    		tipearNovedad("n", 2)
+    	elif novedad.lower() == 'ua':
+    		tipearNovedad("u", 1)
+    	intro()
+		cargar()
+		asignar()
+    		
+del num_unico, novedad, reader  # Borrar objetos
+File.close()  # Cerrar archivo
+del File  
