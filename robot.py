@@ -1,5 +1,6 @@
 import pyautogui as robot
 import time
+import csv
 
 pos_numero_unico = 955,392
 pos_novedad = 937,490
