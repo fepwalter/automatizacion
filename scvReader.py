@@ -9,8 +9,15 @@ with open('prueba.csv', newline='') as File:
     for row in reader:
     	num_unico = row[0]
     	novedad = row[1]
-    	print(num_unico,novedad)
+    	if novedad == '22':
+    		print("entregado")
+    	elif novedad.lower() == 'rae':
+    		print("Se retiro")
+    	elif novedad.lower() == 'not':
+    		print("notificacion")
+    	elif novedad.lower() == 'ua':
+    		print("unico aviso")
+    		
 del num_unico, novedad, reader  # Borrar objetos
 File.close()  # Cerrar archivo
 del File  
-
