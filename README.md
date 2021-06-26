@@ -6,8 +6,6 @@ Script para controlar el data entry.
 
 ## csvReader.py
 
-Lee un archivo que debe estar en formato .csv. No debe tener comillas dobles ("") en ningún lugar o el parseo fallará
-Escribe en otro archivo de salida un .csv con los datos deseados.
+Lee todos los archivos que debe estar en formato .csv de la carpeta "entrada". No debe tener comillas dobles ("") en ningún lugar o el parseo fallará
+Escribe en otro archivo de salida un "salida.csv" con los datos deseados en la carpeta "salida".
 
-
-### Próximo update: Leer todos los .csv de una carpeta y extraer los datos deseados. Resultado final un .csv con los campos deseados.
