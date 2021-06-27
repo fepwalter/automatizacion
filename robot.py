@@ -2,8 +2,9 @@ import pyautogui as robot
 import time
 import csv
 from tkinter import messagebox
+import os
 
-
+dir_salida = os.getcwd()+"\\salida\\"
 pos_aplicacion = 57,500
 pos_anoOperativo = 1046,355
 pos_numero_unico = 955,392
@@ -55,7 +56,8 @@ def anoOperativo2021():
 # realizar algunas operaciones básicas: 
 
 entrarAplicativoAsignarNovedad() # entramos al aplicativo a asignar novedad
-with open(archivo_csv, newline='') as File:  
+
+with open(dir_salida+"archivodecarga.csv", newline='') as File:  
     reader = csv.reader(File, delimiter=';')
     for row in reader:
     	num_unico = row[0]
@@ -72,36 +74,46 @@ with open(archivo_csv, newline='') as File:
     		tipearNovedad("n", 2)
     	elif novedad.lower() == 'ua':
     		tipearNovedad("u", 1)
+    	elif novedad.lower() == 'c':
+    		tipearNovedad('c', 1)
+    	elif novedad.lower() == 'cfa':
+    		tipearNovedad('c', 7)
     	intro()
     	cargar()
     	asignar()
 File.close()
-with open(archivo_csv, newline='') as File:  
-    reader = csv.reader(File, delimiter=';')
+
+
+with open(dir_salida+"archivodecarga.csv", newline='') as File:  
+	reader = csv.reader(File, delimiter=';')
     #Paso a leer la columna 3 cono las novedades del 2021.
-    moverMouse(pos_anoOperativo)
-    anoOperativo2021()
-    for row in reader:
-    	num_unico = row[0]
-    	novedad = row[2]
-    	moverMouse(pos_numero_unico) # meter numero unico
-    	robot.typewrite(num_unico)
-    	robot.sleep(1)
-    	moverMouse(pos_novedad) # Posisionar en novedad
-    	if novedad == '22':
-    		tipearNovedad("2", 3)
-    	elif novedad.lower() == 'rae':
-    		tipearNovedad("r", 1)
-    	elif novedad.lower() == 'not':
-    		tipearNovedad("n", 2)
-    	elif novedad.lower() == 'ua':
-    		tipearNovedad("u", 1)
-    	intro()
-    	cargar()
-    	asignar()
+	moverMouse(pos_anoOperativo)
+	anoOperativo2021()
+	for row in reader:
+		num_unico = row[0]
+		novedad = row[2]
+		moverMouse(pos_numero_unico) # meter numero unico
+		robot.typewrite(num_unico)
+		robot.sleep(1)
+		moverMouse(pos_novedad) # Posisionar en novedad
+		if novedad == '22':
+			tipearNovedad("2", 3)
+		elif novedad.lower() == 'rae':
+			tipearNovedad("r", 1)
+		elif novedad.lower() == 'not':
+			tipearNovedad("n", 2)
+		elif novedad.lower() == 'ua':
+			tipearNovedad("u", 1)
+		elif novedad.lower() == 'c':
+			tipearNovedad('c', 1)
+		elif novedad.lower() == 'cfa':
+			tipearNovedad('c', 7)
+		intro()
+		cargar()
+		asignar()
+File.close()
 
 del num_unico, novedad, reader  # Borrar objetos
 File.close()  # Cerrar archivo
 del File
-
-messagebox.showinfo(message="Terminé craa", title="Happy Hour")
+messagebox.showinfo(message="Terminé craa", title="Tomando un feca")
