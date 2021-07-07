@@ -97,19 +97,21 @@ def lectura_carga_novedades(anio):
 			if novedad.lower() != 'null':
 				if novedad == '22':
 					tipearNovedad("2", 3, num_unico)
-				elif novedad.lower() == 'rae':
+				elif novedad.lower() == ci.COD_RETIRADA:
 					tipearNovedad("r", 1, num_unico)
-				elif novedad.lower() == 'not':
+				elif novedad.lower() == ci.COD_NOTIFICACION:
 					contador +=1
 					tipearNovedad("n", 2, num_unico)
-				elif novedad.lower() == 'ua':
+				elif novedad.lower() == ci.COD_UNICO_AVISO:
 					tipearNovedad("u", 1, num_unico)
-				elif novedad.lower() == 'c':
+				elif novedad.lower() == ci.COD_CUMPLIMENTADO:
 					tipearNovedad('c', 1, num_unico)
-				elif novedad.lower() == 'cfa':
+				elif novedad.lower() == ci.COD_FALTA_REVISAR:
 					tipearNovedad('c', 7, num_unico)
-				elif novedad.lower() == '26v':
+				elif novedad.lower() == ci.COD_NO_UBICABLE_VIRTUAL:
 					tipearNovedad("2",7, num_unico)
+				elif novedad.lower() == ci.COD_PRORROGA:
+					tipearNovedad('p', 1, num_unico)
 				#comprobar si hay codigo 4(NO_OBS)
 				if obsvervacion != ci.COD_NO_OBS:
 					robot.typewrite(obsvervacion)
@@ -136,33 +138,35 @@ def asignarNots(contador):
 	robot.sleep(1)
 	
 # entramos al aplicativo a asignar novedad
-def main(): 
-	entrarAplicativo()
-	irAmenuAsignar()
-	contadorNot2020 = lectura_carga_novedades(2020)
-	posicionarOperativo2021()
-	contadorNot2021 = lectura_carga_novedades(2021)
-	moverMouse(pos_cerrar_asig)
+ 
+entrarAplicativo()
+irAmenuAsignar()
+contadorNot2020 = lectura_carga_novedades(2020)
+posicionarOperativo2021()
+contadorNot2021 = lectura_carga_novedades(2021)
+moverMouse(pos_cerrar_asig)
 
-	irAmenuNots()#entra al modulo de not ya en 2020
-	asignarNots(contadorNot2020)
 
-	#para entrar al modulo de not pero al 2021:	
-	irAmenuNots()
-	moverMouse(pos_operativo_not)
-	robot.hotkey("up")
-	robot.hotkey("enter")
-	asignarNots(contadorNot2021)
+#Modulo para el cargado de las NOT: se puede poner un flag para que no lo haga en caso que no se haya cargado ninduna not.
+#contadorNot2020 = 
+#contadorNot2021 = 
+irAmenuNots()#entra al modulo de not ya en 2020
+asignarNots(contadorNot2020)
 
-	#generar los UA en PDF
-	irAmenu('down',3)
-	robot.hotkey('right')
-	robot.hotkey('down')
-	robot.hotkey('down')
-	robot.hotkey('down')
-	robot.hotkey('down')
-	robot.hotkey('enter')
+#para entrar al modulo de not pero al 2021:	
+irAmenuNots()
+moverMouse(pos_operativo_not)
+robot.hotkey("up")
+robot.hotkey("enter")
+asignarNots(contadorNot2021)
 
-if __name__=='__main__':
-	main()
-	messagebox.showinfo(message="Terminé craa", title="Tomando un feca")
+#generar los UA en PDF
+irAmenu('down',3)
+robot.hotkey('right')
+robot.hotkey('down')
+robot.hotkey('down')
+robot.hotkey('down')
+robot.hotkey('down')
+robot.hotkey('enter')
+
+messagebox.showinfo(message="Terminé craa", title="Tomando un feca")
