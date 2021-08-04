@@ -25,9 +25,9 @@ for csv_file in os.listdir(dir_entrada):
 		with open(dir_entrada+csv_file, newline='', encoding="ANSI") as File:
 			reader = csv.reader(File, delimiter=';')
 			for row in reader:
-				if not row[40]:
-					row[40]= ci.COD_NO_OBS
-				cargarNovedad(row[1],row[37],row[38],row[39],row[40])
+				if not row[37]:
+					row[37]= ci.COD_NO_OBS
+				cargarNovedad(row[1],row[34],row[35],row[36],row[37])
 				#solo controla por fila (si solo hay que cambiar novedad de algun año no lo comprueba eso)
 				#if row[39].lower() == "1": 
 					#writer.writerow([row[1]]+[row[37]]+[row[38]]+[row[40]]) #+ para agregar celdas al lado

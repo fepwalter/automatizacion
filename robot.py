@@ -1,29 +1,15 @@
 import pyautogui as robot
 import time
 import csv
-from tkinter import messagebox
+from tkinter import *
 import os
 import codigos_internos as ci
+import cod_PosicionesCasa as pc
+#import cod_PosicionesOficina as po
 
 dir_salida = os.getcwd()+"\\salida\\"
 pos_aplicacion = 57,500
 archivo_csv = dir_salida+"archivodecarga.csv"
-
-#variables de posicion para el modulo de asignado de novedad
-pos_anoOperativo = 1046,355
-pos_numero_unico = 955,392
-pos_novedad = 937,490
-pos_cargar = 1129,392
-pos_asignar = 907,695
-pos_cuadro_observ = 950,550
-pos_cerrar_asig = 1163,303
-
-#variables de posicion para el modulo de Notificaciones
-pos_cargar_unico = 870,453
-pos_contacto = 830,517
-pos_numero_not = 830,551
-pos_cerrar_nots = 1280,371
-pos_operativo_not = 1006,414
 
 def moverMouse(pos,click=1):
 	robot.moveTo(pos)
@@ -77,11 +63,28 @@ def asignar():
 	moverMouse(pos_asignar)
 	robot.hotkey("enter")
 
-def posicionarOperativo2021():
+def posicionarOperativo2020():
 	moverMouse(pos_anoOperativo)
-	robot.hotkey("up")
+	robot.hotkey("down")
 	robot.hotkey("enter")
 	robot.sleep(1)
+
+def cargar_posiciones(pos):
+	#variables de posicion para el modulo de asignado de novedad
+	pos_anoOperativo = pos.POS_ANIO_OPERATIVO_ASIG
+	pos_numero_unico = pos.POS_NUMERO_UNICO
+	pos_novedad = pos.POS_NOVEDAD
+	pos_cargar = pos.POS_CARGAR
+	pos_asignar = pos.POS_ASIGNAR
+	pos_cuadro_observ = pos.POS_CUADRO_OBSERVACIONES
+	pos_cerrar_asig = pos.POS_CERRAR_ASIGNACION
+
+	#variables de posicion para el modulo de Notificaciones
+	pos_cargar_unico = pos.POS_CARGAR_UNICO
+	pos_contacto = pos.POS_CONTACTO
+	pos_numero_not = pos.POS_NUMERO_NOT
+	pos_cerrar_nots = pos.POS_ANIO_OPERATIVO_NOT
+	pos_operativo_not = pos.POS_CERRAR_NOTIFICACIONES
 
 def lectura_carga_novedades(anio):
 	contador = 0
@@ -104,6 +107,12 @@ def lectura_carga_novedades(anio):
 					tipearNovedad("n", 2, num_unico)
 				elif novedad.lower() == ci.COD_UNICO_AVISO:
 					tipearNovedad("u", 1, num_unico)
+				elif novedad.lower() == ci.COD_SIN_ACTIVIDAD:
+					tipearNovedad("1", 6, num_unico)
+				elif novedad.lower() == ci.COD_ASIGNADA_ENCUESTADOR:
+					tipearNovedad("2", 2, num_unico)
+				elif novedad.lower() == ci.COD_FUSION:
+					tipearNovedad("1", 5, num_unico)
 				elif novedad.lower() == ci.COD_CUMPLIMENTADO:
 					tipearNovedad('c', 1, num_unico)
 				elif novedad.lower() == ci.COD_FALTA_REVISAR:
@@ -138,14 +147,19 @@ def asignarNots(contador):
 	robot.sleep(1)
 	
 # entramos al aplicativo a asignar novedad
- 
-entrarAplicativo()
-irAmenuAsignar()
-contadorNot2020 = lectura_carga_novedades(2020)
-posicionarOperativo2021()
-contadorNot2021 = lectura_carga_novedades(2021)
-moverMouse(pos_cerrar_asig)
 
+#entrarAplicativo()
+opcion = int(input("opcion 1 para cargar los valores de casa."))
+if opcion == 1:
+	cargar_posiciones(pc)
+#else:
+	#cargar_posiciones(po)
+
+irAmenuAsignar()
+contadorNot2021 = lectura_carga_novedades(2021)
+posicionarOperativo2020()
+contadorNot2020 = lectura_carga_novedades(2020)
+moverMouse(pos_cerrar_asig)
 
 #Modulo para el cargado de las NOT: se puede poner un flag para que no lo haga en caso que no se haya cargado ninduna not.
 #contadorNot2020 = 
